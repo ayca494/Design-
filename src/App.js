@@ -12,7 +12,6 @@ const dbRef = ref(getDatabase());
 function hizGuncelle(hiz = 0) {
   set(ref(db, "arac"), {
     hiz: hiz, 
- 
   });
 }
 function yonGuncelle(yon=10) {
