@@ -41,11 +41,7 @@ function App() {
         if (snapshot.exists()) {
           const data = snapshot.val();
           setCounter(data.hiz);
-          
-        } if (snapshot.exists()) {
-          const data = snapshot.val();
           setDirection(data.yon);
-          
         }else {
           console.log("No data available");
         }
