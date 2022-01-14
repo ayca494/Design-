@@ -2,27 +2,48 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { useState } from "react";
 import app from "./firebase";
-
 import { getDatabase, ref, child, get, set } from "firebase/database";
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+
+} from "react-google-maps";
+import ArrowKeysReact from 'arrow-keys-react';
 
 const db = getDatabase(app);
-
 const dbRef = ref(getDatabase());
 
-function hizGuncelle(hiz = 0) {
+function veriGuncelle(hiz = 0, yon = 10) {
   set(ref(db, "arac"), {
-    hiz: hiz, 
-    
-  });
-}
-function yonGuncelle(yon=10) {
-  set(ref(db, "arac"), {
+    hiz: hiz,
     yon: yon,
   });
 }
 
-
 function App() {
+  const MapWithAMarker = withScriptjs(
+    withGoogleMap((props) => (
+      <GoogleMap defaultZoom={8} defaultCenter={{ lat: 38.55, lng: 35.55 }}>
+      </GoogleMap>
+    ))
+  );
+  
+  // ArrowKeysReact.config({
+  //   left: () => {
+  //     console.log('left key detected.');
+  //   },
+  //   right: () => {
+  //     console.log('right key detected.');
+  //   },
+  //   up: () => {
+  //     console.log('up key detected.');
+  //   },
+  //   down: () => {
+  //     console.log('down key detected.');
+  //   }
+  // });
+
   const sol = "🡨";
   const sol2 = "<<";
   const sag = "🡪";
@@ -42,7 +63,7 @@ function App() {
           const data = snapshot.val();
           setCounter(data.hiz);
           setDirection(data.yon);
-        }else {
+        } else {
           console.log("No data available");
         }
       })
@@ -54,7 +75,7 @@ function App() {
   const artırmafonksiyonu = () => {
     if (counter >= 0 && counter < 100) {
       setCounter(counter + 1);
-      hizGuncelle(counter + 1);
+      veriGuncelle(counter + 1, direction);
     }
     if (counter === 100) {
       setCounter(counter);
@@ -63,46 +84,57 @@ function App() {
   const azaltmafonksiyonu = () => {
     if (counter > 0 && counter <= 100) {
       setCounter(counter - 1);
-      hizGuncelle(counter - 1);
+      veriGuncelle(counter - 1, direction);
     }
   };
 
-  // const frenfonksiyonu = ()=>{
-  //   setCounter(0);
-  // }
+  const frenfonksiyonu = () => {
+    setCounter(0);
+    veriGuncelle(0);
+  };
 
   const right = () => {
-    if (direction >= 0 && direction < 20) {
+    if (direction >= 0 && direction <= 20) {
       setDirection(direction + 1);
-      yonGuncelle(direction + 1);
+      veriGuncelle(counter, direction + 1);
     }
   };
 
   const right2 = () => {
-    if (direction >= 0 && direction < 20) {
+    if (direction >= 0 && direction <= 20) {
       setDirection(direction + 2);
-      yonGuncelle(direction + 2);
+      veriGuncelle(counter, direction + 2);
     }
   };
 
   const left = () => {
     if (direction > 0 && direction <= 20) {
       setDirection(direction - 1);
-      yonGuncelle(direction - 1);
+      veriGuncelle(counter, direction - 1);
     }
   };
 
   const left2 = () => {
     if (direction > 1 && direction <= 20) {
       setDirection(direction - 2);
-      yonGuncelle(direction - 2);
+      veriGuncelle(counter, direction - 2);
     }
   };
 
   return (
     <div className="App">
-      
       <h3 style={{ color: "red" }}>ERCİYES OTONOM ARAÇ</h3>
+      <div>
+        <MapWithAMarker
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR2zDLfXVdcdLoNILtd_eXVtSsxO8x0EQ&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={
+            <div style={{ height: `250px`, width: `600px`, margin: `auto` }} />
+          }
+          mapElement={<div style={{ height: `100%` }} />}
+          
+        />
+      </div>
 
       <div>
         <button
@@ -127,7 +159,11 @@ function App() {
 
         <h4>{counter}</h4>
 
-        <button type="button" className="btn btn-danger">
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={frenfonksiyonu}
+        >
           ⊚
         </button>
         <button type="button" className="btn btn-primary" onClick={right}>

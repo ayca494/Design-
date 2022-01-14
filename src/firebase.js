@@ -2,14 +2,14 @@ import { initializeApp } from "firebase/app";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyD1aem_WHEcLyTVnL0PkkFKCeCd5jE09EE",
-  authDomain: "otonom-aaa59.firebaseapp.com",
-  databaseURL: "https://otonom-aaa59-default-rtdb.firebaseio.com",
-  projectId: "otonom-aaa59",
-  storageBucket: "otonom-aaa59.appspot.com",
-  messagingSenderId: "962458632344",
-  appId: "1:962458632344:web:5fdbd3f8b3e7520b8850ed",
-  measurementId: "G-1EQ9ELM7HL",
+  apiKey: "AIzaSyDYNzuGaqs1BL2ZJ9lXpFOgEbvGXOmNwog",
+  authDomain: "otonom-f1e18.firebaseapp.com",
+  databaseURL: "https://otonom-f1e18-default-rtdb.firebaseio.com/",
+  projectId: "otonom-f1e18",
+  storageBucket: "otonom-f1e18.appspot.com",
+  messagingSenderId: "620367793465",
+  appId: "1:620367793465:web:e6f3f0d8e1f4e434a6ace8",
+  measurementId: "G-NFK1QNS1NB"
 };
 
 const app = initializeApp(firebaseConfig);
