@@ -29,20 +29,6 @@ function App() {
     ))
   );
   
-  // ArrowKeysReact.config({
-  //   left: () => {
-  //     console.log('left key detected.');
-  //   },
-  //   right: () => {
-  //     console.log('right key detected.');
-  //   },
-  //   up: () => {
-  //     console.log('up key detected.');
-  //   },
-  //   down: () => {
-  //     console.log('down key detected.');
-  //   }
-  // });
 
   const sol = "🡨";
   const sol2 = "<<";
