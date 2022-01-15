@@ -126,7 +126,8 @@ function App() {
       <h3 style={{ color: "red" }}>ERCİYES OTONOM ARAÇ</h3>
       <div>
         <MapWithAMarker
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR2zDLfXVdcdLoNILtd_eXVtSsxO8x0EQ&v=3.exp&libraries=geometry,drawing,places"
+        //google map için api key oluşturmalısınz.Aşağıda yazan your_api_key kısmına kendi apinizi yapıştırın.
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=Your_api_key&v=3.exp&libraries=geometry,drawing,places"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={
             <div style={{ height: `250px`, width: `600px`, margin: `auto` }} />
