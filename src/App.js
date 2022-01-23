@@ -7,9 +7,7 @@ import {
   withScriptjs,
   withGoogleMap,
   GoogleMap,
-
 } from "react-google-maps";
-import ArrowKeysReact from 'arrow-keys-react';
 
 const db = getDatabase(app);
 const dbRef = ref(getDatabase());
@@ -21,10 +19,50 @@ function veriGuncelle(hiz = 0, yon = 10) {
   });
 }
 
+function getPaths(polyline) {
+
+  var polylineBounds = polyline.getPath();
+  var bounds = [];
+  for (var i = 0; i < polylineBounds.length; i++) {
+    var point = {
+      lat: polylineBounds.getAt(i).lat(),
+      lng: polylineBounds.getAt(i).lng()
+    };
+    bounds.push(point);
+  }
+  console.log(bounds);
+}
+
+const { DrawingManager } = require("react-google-maps/lib/components/drawing/DrawingManager");
 function App() {
   const MapWithAMarker = withScriptjs(
     withGoogleMap((props) => (
       <GoogleMap defaultZoom={8} defaultCenter={{ lat: 38.55, lng: 35.55 }}>
+       <DrawingManager
+       drawingMode={"polyline"}
+       onPolylineComplete={value => console.log(getPaths(value))}
+      defaultDrawingMode={window.google.maps.drawing.OverlayType.CIRCLE}
+      defaultOptions={{
+        drawingControl: true,
+        drawingControlOptions: {
+          position: window.google.maps.ControlPosition.TOP_CENTER,
+          drawingModes: [
+            window.google.maps.drawing.OverlayType.CIRCLE,
+            window.google.maps.drawing.OverlayType.POLYGON,
+            window.google.maps.drawing.OverlayType.POLYLINE,
+            window.google.maps.drawing.OverlayType.RECTANGLE,
+          ],
+        },
+        circleOptions: {
+          fillColor: `#ffff00`,
+          fillOpacity: 1,
+          strokeWeight: 2,
+          clickable: false,
+          editable: false,
+          zIndex: 1,
+        },
+      }}
+    />
       </GoogleMap>
     ))
   );
@@ -57,6 +95,7 @@ function App() {
         console.error(error);
       });
   }, []);
+
 
   const artırmafonksiyonu = () => {
     if (counter >= 0 && counter < 100) {
@@ -113,7 +152,7 @@ function App() {
       <div>
         <MapWithAMarker
         //google map için api key oluşturmalısınz.Aşağıda yazan your_api_key kısmına kendi apinizi yapıştırın.
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=Your_api_key&v=3.exp&libraries=geometry,drawing,places"
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=[your_api_key]&v=3.exp&libraries=geometry,drawing,places"
           loadingElement={<div style={{ height: `100%` }} />}
           containerElement={
             <div style={{ height: `250px`, width: `600px`, margin: `auto` }} />
@@ -121,6 +160,7 @@ function App() {
           mapElement={<div style={{ height: `100%` }} />}
           
         />
+        
       </div>
 
       <div>
